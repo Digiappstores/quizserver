@@ -1,31 +1,23 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const QuestionRoutes = require('./routes/QuestionRoutes')
 require('dotenv').config()
 
+const QuestionRoutes = require('./routes/QuestionRoutes')
+const ConfigRoutes = require('./routes/ConfigRoutes')
 const server = express();
 
 
-
-const db = "mongodb+srv://das:das@cluster0.c7cmfub.mongodb.net/questions?retryWrites=true&w=majority"
-
-mongoose.connect(db).then((res) => {
-  console.log('connected', "res")
+mongoose.connect(process.env.DB).then((res) => {
+  console.log('connected', "DB Connected")
 })
 
-// Ensure that S3 Bucket is properly loaded
-console.log('S3 BUCKET', process.env.AWS_S3_BUCKET)
-
-// Middleware Plugins
-// server.use(bodyParser.json())
-// server.use(bodyParser.urlencoded({ extended: false }))
 server.use(express.json())
 server.use(express.static('public')) // Just for testing, use a static html
 
 // Routes
 server.use('/', [require('./routes/fileupload')])
 server.use('/question', QuestionRoutes)
+server.use('/config', ConfigRoutes)
 
 
 // Start the server
