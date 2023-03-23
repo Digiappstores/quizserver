@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require("cors");
 require('dotenv').config()
 
 const QuestionRoutes = require('./routes/QuestionRoutes')
@@ -11,6 +12,7 @@ mongoose.connect(process.env.DB).then((res) => {
   console.log('connected', "DB Connected")
 })
 
+server.use(cors());
 server.use(express.json())
 server.use(express.static('public')) // Just for testing, use a static html
 

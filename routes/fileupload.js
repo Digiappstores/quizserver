@@ -1,9 +1,11 @@
-const express = require('express')
+const express = require('express');
+const { getS3Images, uploadS3Image } = require('../utill/s3Client');
 const router = express.Router()
-const { upload } = require('../utill/s3UploadClient')
 
 // Upload a file
-router.post('/upload', upload.array('inputFile', 3), (req, res) => {
+router.route("/s3images").get(getS3Images);
+
+router.post('/upload', uploadS3Image.array('file', 3), (req, res) => {
   if (!req.files) res.status(400).json({ error: 'No files were uploaded.' })
 
   res.status(201).json({
