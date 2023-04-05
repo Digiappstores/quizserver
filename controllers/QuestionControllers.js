@@ -8,7 +8,7 @@ exports.getQuestionsByUserId = async (req, res) => {
     const aud = getUserIsFromToken(req.headers['authorization'])
     const Questions = await QuestionService.getQuestionsByUserId(aud);
     // console.log('Questions', Questions)
-    res.json({ data: Questions, status: "success" });
+    res.json({ data: { data: Questions, questionCount: Questions.length }, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -17,7 +17,7 @@ exports.getQuestionsByUserId = async (req, res) => {
 exports.getAllQuestions = async (req, res) => {
   try {
     const Questions = await QuestionService.getAllQuestions();
-    res.json({ data: Questions, status: "success" });
+    res.json({ data: { data: Questions, questionCount: Questions.length }, status: "success" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
