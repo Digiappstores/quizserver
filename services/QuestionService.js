@@ -3,18 +3,21 @@ const QuestionModel = require("../models/QuestionModel");
 exports.getAllQuestions = async () => {
   return await QuestionModel.find();
 };
+exports.getQuestionsByUserId = async (userId) => {
+  return await QuestionModel.find({ userId });
+};
 
 exports.createQuestion = async (Question) => {
   return await QuestionModel.create(Question);
 };
-exports.getQuestionById = async (id) => {
-  return await QuestionModel.findById(id);
+exports.getQuestionById = async (questionId) => {
+  return await QuestionModel.find({ questionId });
 };
 
-exports.updateQuestion = async (id, Question) => {
-  return await QuestionModel.findByIdAndUpdate(id, Question);
+exports.updateQuestion = async (questionId, Question) => {
+  return await QuestionModel.findOneAndUpdate({ questionId }, Question, { new: true });
 };
 
-exports.deleteQuestion = async (id) => {
-  return await QuestionModel.findByIdAndDelete(id);
+exports.deleteQuestion = async (questionId) => {
+  return await QuestionModel.findOneAndDelete({ questionId });
 };

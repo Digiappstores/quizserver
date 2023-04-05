@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
-    label: String,
-    type: String,
-    question: String,
-    option1: String,
-    option2: String,
-    option3: String,
-    option4: String,
-    answer: String
+    question: Object,
+    options: Object,
+    answer: String,
+    status: String,
+    filterBy: Object,
+    userId: Number,
+    questionId: Number,
 });
+
+questionSchema.set('toJSON', {
+    versionKey: false,
+    transform: function (doc, ret) {
+        delete ret._id
+    }
+})
 
 module.exports = mongoose.model("Question", questionSchema);
