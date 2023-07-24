@@ -11,6 +11,7 @@ const { verifyAccessToken } = require('./helpers/jwt_helper')
 const QuestionRoutes = require('./routes/QuestionRoutes')
 const ConfigRoutes = require('./routes/ConfigRoutes')
 const AuthRoutes = require('./routes/AuthRoutes')
+const QuizRoutes = require('./routes/QuizRoutes')
 
 const server = express();
 server.use(morgan('dev'));
@@ -27,6 +28,7 @@ mongoose.connect(process.env.DB).then((res) => {
 server.use('/', [require('./routes/fileupload')])
 server.use('/question', verifyAccessToken, QuestionRoutes)
 server.use('/config', verifyAccessToken, ConfigRoutes)
+server.use('/quiz', verifyAccessToken, QuizRoutes)
 server.use('/user', AuthRoutes)
 
 server.use(async (req, res, next) => {

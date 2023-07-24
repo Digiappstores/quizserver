@@ -12,6 +12,10 @@ const CounterSchema = new mongoose.Schema({
     questionid: {
         type: Number,
         required: true
+    },
+    quizid: {
+        type: Number,
+        required: true
     }
 });
 

@@ -15,6 +15,7 @@ exports.getQuestionsByUserId = async (req, res) => {
 };
 
 exports.getAllQuestions = async (req, res) => {
+  console.log("getAllQuestions")
   try {
     const Questions = await QuestionService.getAllQuestions();
     res.json({ data: { data: Questions, questionCount: Questions.length }, status: "success" });
@@ -28,14 +29,22 @@ exports.createQuestion = async (req, res) => {
     const aud = getUserIsFromToken(req.headers['authorization'])
     var seqCounter = await getSequenceNextValue("autogen", "questionid");
 
-    const Question = await QuestionService.createQuestion({ ...req.body, userId: aud, questionId: seqCounter.questionid });
-    res.json({ data: Question, status: "success", message: "Question saved succssfully" });
+    const Question = await QuestionService.createQuestion({
+      ...req.body,
+      userId: aud,
+      questionId: seqCounter.questionid,
+      "yourduration": null,
+      "yourAnswer": null,
+      "favorite": false,
+    });
+    res.json({ data: Question, status: "success", message: "Question saved successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
 exports.getQuestionById = async (req, res) => {
+  console.log("getQuestionById")
   try {
     const Question = await QuestionService.getQuestionById(req.params.id);
     res.json({ data: Question, status: "success" });
@@ -47,7 +56,7 @@ exports.getQuestionById = async (req, res) => {
 exports.updateQuestion = async (req, res) => {
   try {
     const Question = await QuestionService.updateQuestion(req.params.id, req.body);
-    res.json({ data: Question, status: "success", message: "Question update succssfully" });
+    res.json({ data: Question, status: "success", message: "Question update successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -56,7 +65,7 @@ exports.updateQuestion = async (req, res) => {
 exports.deleteQuestion = async (req, res) => {
   try {
     const Question = await QuestionService.deleteQuestion(req.params.id);
-    res.json({ data: Question, status: "success", message: "Question delete succssfully" });
+    res.json({ data: Question, status: "success", message: "Question delete successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
