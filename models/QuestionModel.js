@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const questionSchema = new mongoose.Schema({
     question: String,
-    option: Array,
+    options: Array,
     answer: String,
     questType: String,
     optionType: String,
@@ -12,6 +12,7 @@ const questionSchema = new mongoose.Schema({
     quesChoise: String,
     duration: String,
     favorite: Boolean,
+    countInQuiz: Number,
     yourduration: String,
     yourAnswer: String,
     userId: Number,

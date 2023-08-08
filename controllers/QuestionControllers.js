@@ -36,6 +36,7 @@ exports.createQuestion = async (req, res) => {
       "yourduration": null,
       "yourAnswer": null,
       "favorite": false,
+      "countInQuiz": 0,
     });
     res.json({ data: Question, status: "success", message: "Question saved successfully" });
   } catch (err) {
@@ -54,6 +55,7 @@ exports.getQuestionById = async (req, res) => {
 };
 
 exports.updateQuestion = async (req, res) => {
+  console.log("updateQuestion")
   try {
     const Question = await QuestionService.updateQuestion(req.params.id, req.body);
     res.json({ data: Question, status: "success", message: "Question update successfully" });
@@ -63,9 +65,20 @@ exports.updateQuestion = async (req, res) => {
 };
 
 exports.deleteQuestion = async (req, res) => {
+  console.log("deleteQuestion")
   try {
     const Question = await QuestionService.deleteQuestion(req.params.id);
     res.json({ data: Question, status: "success", message: "Question delete successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.filterOptions = async (req, res) => {
+  console.log("filterOptions")
+  try {
+    const Question = await QuestionService.filterOptions();
+    console.log('Question', Question)
+    res.json({ data: Question, status: "success", message: "Question filter option retrive successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

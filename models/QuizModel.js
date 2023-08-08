@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 
 const quizSchema = new mongoose.Schema({
-  questionDetails: Array,
-  date: String,
-  score: String,
+  quesIdArr: Array,
+  duration: String,
+  tags: Array,
+  Attempt: String,
+  win: String,
+  favorite: Boolean,
   quizId: String,
   userId: String,
-  quizCount: String
 });
 
 quizSchema.set('toJSON', {

@@ -17,3 +17,6 @@ exports.createQuiz = async (quiz) => {
 exports.deleteQuiz = async (quizId) => {
   return await QuizModel.findOneAndDelete({ quizId });
 };
+exports.updateQuiz = async (quizId, Quiz) => {
+  return await QuizModel.findOneAndUpdate({ quizId }, Quiz, { new: true });
+};

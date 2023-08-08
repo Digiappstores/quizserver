@@ -1,3 +1,4 @@
+const QuestionFilterModel = require("../models/QuestionFilterModel");
 const QuestionModel = require("../models/QuestionModel");
 
 exports.getAllQuestions = async () => {
@@ -20,4 +21,8 @@ exports.updateQuestion = async (questionId, Question) => {
 
 exports.deleteQuestion = async (questionId) => {
   return await QuestionModel.findOneAndDelete({ questionId });
+};
+
+exports.filterOptions = async () => {
+  return await QuestionFilterModel.find();
 };
