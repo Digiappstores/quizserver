@@ -1,0 +1,25 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+PassengerAppRoot "/home/digiapps/quiz.digiappstore.com"
+PassengerBaseURI "/"
+PassengerNodejs "/home/digiapps/nodevenv/quiz.digiappstore.com/14/bin/node"
+PassengerAppType node
+PassengerStartupFile app.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /index.html [L]
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+<IfModule Litespeed>
+SetEnv AWS_ACCESS_KEY_ID AKIA4EJJRNEGB2GZQV42
+SetEnv AWS_DEFAULT_REGION us-east-1
+SetEnv AWS_S3_BUCKET dasuser1bucket
+SetEnv AWS_SECRET_ACCESS_KEY tX4HJCOvtnnEt15IIrAh7xx0E0hyakEQTo7/sNXJ
+SetEnv DB mongodb+srv://das:das@cluster0.c7cmfub.mongodb.net/das?retryWrites=true&w=majority
+</IfModule>
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END

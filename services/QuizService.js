@@ -2,7 +2,7 @@ const QuizModel = require("../models/QuizModel");
 
 exports.getAllQuizs = async () => {
   console.log("getAllQuizs")
-  return await QuizModel.find();
+  return await QuizModel.find().sort({ "quizId": -1 });
 };
 exports.getQuizById = async (quizId) => {
   return await QuizModel.find({ quizId });
@@ -16,6 +16,10 @@ exports.createQuiz = async (quiz) => {
 };
 exports.deleteQuiz = async (quizId) => {
   return await QuizModel.findOneAndDelete({ quizId });
+};
+
+exports.inActiveQuiz = async (quizId, Quiz) => {
+  return await QuizModel.findOneAndUpdate({ quizId }, Quiz, { new: true });
 };
 exports.updateQuiz = async (quizId, Quiz) => {
   return await QuizModel.findOneAndUpdate({ quizId }, Quiz, { new: true });

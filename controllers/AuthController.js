@@ -13,14 +13,16 @@ module.exports = {
   register: async (req, res, next) => {
     try {
       const result = await authSchema.validateAsync(req.body)
+      console.log('result', result)
 
-      const doesExist = await User.findOne({ phonenumber: result.phonenumber })
+      const doesExist = await User.findOne({ mobilenumber: result.mobilenumber })
+      console.log('doesExist', doesExist)
       if (doesExist)
-        throw createError.Conflict(`${result.phonenumber} is already been registered`)
+        throw createError.Conflict(`${result.mobilenumber} is already been registered`)
 
       var seqCounter = await getSequenceNextValue("autogen", "userid");
       const user = new User({ ...result, userId: seqCounter.userid });
-
+      console.log('user', user)
       await user.save()
 
       res.send({ status: true, message: "User register successfully", data: user })
@@ -34,7 +36,7 @@ module.exports = {
     // console.log('req, res, next', req.body)
     try {
       const result = await authSchema.validateAsync(req.body)
-      const user = await User.findOne({ phonenumber: result.phonenumber })
+      const user = await User.findOne({ mobilenumber: result.mobilenumber })
       if (!user) throw createError.NotFound('User not registered')
       // console.log('user', user.userId)
       // const isMatch = await user.isValidPassword(result.password)
@@ -46,9 +48,10 @@ module.exports = {
       var pdata = {
         accessToken,
         refreshToken,
-        phonenumber: user.phonenumber,
+        mobilenumber: user.mobilenumber,
         username: user.username,
-        userId: user.userId
+        userId: user.userId,
+        email: user.email
       }
       res.send({ status: true, message: "User Login successfully", data: pdata })
     } catch (error) {
